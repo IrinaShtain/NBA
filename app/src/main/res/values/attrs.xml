@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlaceHolderView">
+        <attr name="title" format="string" />
+        <attr name="description" format="string" />
+        <attr name="state_icon" format="reference" />
+        <attr name="state_icon_visibility" format="boolean" />
+        <attr name="state_button_text" format="reference" />
+        <attr name="state_button_visibility" format="boolean" />
+    </declare-styleable>
+</resources>

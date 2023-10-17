@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">NBA</string>
+    <string name="players">Players NBA</string>
+    <string name="players_team">Player\'s team</string>
+    <string name="players_details">Player\'s details</string>
+    <string name="player">Player</string>
+    <string name="position">Position:</string>
+    <string name="team">Team:</string>
+    <string name="height">Height:</string>
+    <string name="weight">Weight:</string>
+    <string name="abbreviation">Abbreviation:</string>
+    <string name="city">City:</string>
+    <string name="conference">Conference:</string>
+    <string name="division">Division:</string>
+    <string name="short_name">Short name:</string>
+    <string name="no_server_connection">No connection</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="check_network_connection">Check your network connection</string>
+    <string name="check_server_connection">Something went wrong</string>
+    <string name="reload">Reload</string>
+    <string name="inches">%s inches</string>
+    <string name="pounds">%s pounds</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/red_400</color>
+    <color name="colorOnPrimary">@color/black</color>
+    <color name="colorPrimaryVariant">@color/red_500</color>
+    <color name="statusBarColor">@color/colorPrimaryVariant</color>
+
+    <color name="colorSecondary">@color/teal_200</color>
+    <color name="colorSecondaryVariant">@color/teal_700</color>
+    <color name="colorOnSecondary">@color/black</color>
+
+    <color name="colorBackgroundBase">@android:color/black</color>
+    <color name="colorCardBackground">#8BCA4343</color>
+    <color name="colorToolbarText">@android:color/black</color>
+    <color name="colorTextBase">@android:color/white</color>
+</resources>

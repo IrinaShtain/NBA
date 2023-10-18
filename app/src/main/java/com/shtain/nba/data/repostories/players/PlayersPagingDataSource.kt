@@ -2,7 +2,7 @@ package com.shtain.nba.data.repostories.players
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.shtain.nba.models.Player
+import com.shtain.nba.data.models.Player
 import com.shtain.nba.data.network.NetworkException
 import com.shtain.nba.data.network.conection.NetworkManagerApi
 import com.shtain.nba.data.network.http.HttpClientApi

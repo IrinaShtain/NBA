@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reloadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSecondary"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/reload" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iconImageView"
@@ -17,18 +27,6 @@
         android:src="@drawable/ic_no_connection" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        android:gravity="center"
-        android:textSize="26sp"
-        android:textColor="@color/colorTextBase"
-        android:text="@string/no_internet_connection" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,18 +35,19 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         android:gravity="center"
-        android:textColor="@color/colorTextBase"
-        android:text="@string/check_network_connection" />
+        android:text="@string/check_network_connection"
+        android:textColor="@color/colorTextBase" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/reloadButton"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@color/colorSecondary"
-        android:text="@string/reload"/>
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:text="@string/no_internet_connection"
+        android:textColor="@color/colorTextBase"
+        android:textSize="26sp" />
 
 </LinearLayout>

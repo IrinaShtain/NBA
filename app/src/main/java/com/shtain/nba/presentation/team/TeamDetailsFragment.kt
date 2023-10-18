@@ -11,8 +11,8 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.shtain.nba.R
-import com.shtain.nba.databinding.FragmentTeamDetailsBinding
 import com.shtain.nba.data.network.NetworkStatus
+import com.shtain.nba.databinding.FragmentTeamDetailsBinding
 import com.shtain.nba.presentation.common.extensions.toGone
 import com.shtain.nba.presentation.common.extensions.toVisible
 import com.shtain.nba.presentation.common.viewbinding.ViewBindingHolder
@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TeamDetailsFragment  : Fragment(),
+class TeamDetailsFragment : Fragment(),
     ViewBindingHolder<FragmentTeamDetailsBinding> by ViewBindingHolderImpl() {
 
     private val viewModel: TeamDetailsViewModel by viewModels()
@@ -48,7 +48,7 @@ class TeamDetailsFragment  : Fragment(),
             viewModel.teamData
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collect { status ->
-                    when(status){
+                    when (status) {
                         NetworkStatus.Loading -> {
                             binding.apply {
                                 progressBar.toVisible()
@@ -81,6 +81,7 @@ class TeamDetailsFragment  : Fragment(),
                                 }
                             }
                         }
+
                         is NetworkStatus.Success -> {
                             binding.apply {
                                 swipeRefreshLayout.isRefreshing = false

@@ -11,7 +11,7 @@ import com.shtain.nba.databinding.ViewPlaceHolderBinding
 import com.shtain.nba.presentation.common.extensions.visibleOrGoneIf
 
 
-class PlaceHolderView @kotlin.jvm.JvmOverloads constructor(
+class PlaceHolderView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

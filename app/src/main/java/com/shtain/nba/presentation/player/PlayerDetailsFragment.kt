@@ -50,7 +50,7 @@ class PlayerDetailsFragment : Fragment(),
             viewModel.playerData
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collect { status ->
-                    when(status){
+                    when (status) {
                         NetworkStatus.Loading -> {
                             binding.apply {
                                 progressBar.toVisible()
@@ -83,6 +83,7 @@ class PlayerDetailsFragment : Fragment(),
                                 }
                             }
                         }
+
                         is NetworkStatus.Success -> {
                             binding.apply {
                                 swipeRefreshLayout.isRefreshing = false
@@ -92,10 +93,13 @@ class PlayerDetailsFragment : Fragment(),
                                 nameTextView.text = status.data.fullName
                                 positionTextView.text = status.data.position
                                 teamTextView.text = status.data.team.fullName
-                                heightTextView.text = getString(R.string.inches, status.data.heightInches.toString())
-                                weightTextView.text = getString(R.string.pounds, status.data.weightPounds.toString())
+                                heightTextView.text =
+                                    getString(R.string.inches, status.data.heightInches.toString())
+                                weightTextView.text =
+                                    getString(R.string.pounds, status.data.weightPounds.toString())
                                 teamTextView.setOnClickListener {
-                                    findNavController().navigate(R.id.action_player_to_team,
+                                    findNavController().navigate(
+                                        R.id.action_player_to_team,
                                         args = bundleOf("teamId" to status.data.team.id)
                                     )
                                 }

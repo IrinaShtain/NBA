@@ -17,8 +17,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.shtain.nba.R
-import com.shtain.nba.databinding.FragmentPlayersBinding
 import com.shtain.nba.data.network.NetworkException
+import com.shtain.nba.databinding.FragmentPlayersBinding
 import com.shtain.nba.presentation.common.extensions.isVisible
 import com.shtain.nba.presentation.common.extensions.visibleOrGoneIf
 import com.shtain.nba.presentation.common.viewbinding.ViewBindingHolder
@@ -45,13 +45,17 @@ class PlayersListFragment : Fragment(),
 
         playerListAdapter = PlayerListAdapter(object : PlayerClickListener {
             override fun onTeamDetails(teamId: Long) {
-                findNavController().navigate(R.id.action_list_to_team,
-                    args = bundleOf("teamId" to teamId))
+                findNavController().navigate(
+                    R.id.action_list_to_team,
+                    args = bundleOf("teamId" to teamId)
+                )
             }
 
             override fun onPlayerClick(playerId: Long) {
-                findNavController().navigate(resId = R.id.action_list_to_player,
-                args = bundleOf("playerId" to playerId))
+                findNavController().navigate(
+                    resId = R.id.action_list_to_player,
+                    args = bundleOf("playerId" to playerId)
+                )
             }
         })
 
@@ -60,35 +64,48 @@ class PlayersListFragment : Fragment(),
                 withLoadStateFooter(FooterLoadStateAdapter())
                 addLoadStateListener { state: CombinedLoadStates ->
                     val isLoading = state.refresh is LoadState.Loading
-                    val isError = state.refresh is LoadState.Error && state.prepend is LoadState.NotLoading
-                    val isAppendError = state.append is LoadState.Error && playerListAdapter.itemCount !=0
+                    val isError =
+                        state.refresh is LoadState.Error && state.prepend is LoadState.NotLoading
+                    val isAppendError =
+                        state.append is LoadState.Error && playerListAdapter.itemCount != 0
                     binding.apply {
                         progressBar.visibleOrGoneIf(isLoading && playerListAdapter.itemCount == 0)
                         placeHolder.visibleOrGoneIf(isError)
                         if (swipeRefreshLayout.isRefreshing && !isLoading)
-                           swipeRefreshLayout.isRefreshing = false
+                            swipeRefreshLayout.isRefreshing = false
                         recyclerView.visibleOrGoneIf(!isError && !progressBar.isVisible())
                         if (isAppendError) {
-                            Toast.makeText(requireContext(), getString(
-                                if ((state.append as LoadState.Error).error is NetworkException)
-                                R.string.no_internet_connection
-                            else R.string.no_server_connection),
-                                Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(), getString(
+                                    if ((state.append as LoadState.Error).error is NetworkException)
+                                        R.string.no_internet_connection
+                                    else R.string.no_server_connection
+                                ),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                        if (isError){
+                        if (isError) {
                             placeHolder.apply {
-                                setTitle(getString(if ((state.refresh as LoadState.Error).error is NetworkException)
-                                    R.string.no_internet_connection
-                                else R.string.no_server_connection))
-                                setDescription(getString(if ((state.refresh as LoadState.Error).error is NetworkException)
-                                    R.string.check_network_connection
-                                else R.string.check_server_connection))
+                                setTitle(
+                                    getString(
+                                        if ((state.refresh as LoadState.Error).error is NetworkException)
+                                            R.string.no_internet_connection
+                                        else R.string.no_server_connection
+                                    )
+                                )
+                                setDescription(
+                                    getString(
+                                        if ((state.refresh as LoadState.Error).error is NetworkException)
+                                            R.string.check_network_connection
+                                        else R.string.check_server_connection
+                                    )
+                                )
                             }
                         }
                     }
                 }
             }
-            layoutManager =   LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+            layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         }
 
         placeHolder.setReloadClickListener {

@@ -51,11 +51,11 @@ class HttpClientImpl @Inject constructor() : HttpClientApi {
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .also { builder ->
-            //    if (BuildConfig.DEBUG) {
-                    builder.addInterceptor(HttpLoggingInterceptor().apply {
-                        this.level = HttpLoggingInterceptor.Level.BODY
-                    })
-              //  }
+                //    if (BuildConfig.DEBUG) {
+                builder.addInterceptor(HttpLoggingInterceptor().apply {
+                    this.level = HttpLoggingInterceptor.Level.BODY
+                })
+                //  }
             }
     }
 

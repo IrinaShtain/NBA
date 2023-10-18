@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:theme="@style/ToolBarStyle"
         app:navigationIcon="?attr/homeAsUpIndicator"
+        app:theme="@style/ToolBarStyle"
         app:title="@string/players_team" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -31,19 +31,10 @@
                 android:id="@+id/progressBar"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:visibility="gone"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_margin="16dp" />
-
-            <com.shtain.nba.presentation.common.view.PlaceHolderView
-                android:id="@+id/placeHolder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:state_button_visibility="true"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:layout_margin="16dp"
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardContent"
@@ -145,6 +136,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="LAL" />
+
                     <TextView
                         android:id="@+id/cityHintTextView"
                         android:layout_width="wrap_content"
@@ -224,6 +216,15 @@
 
 
             </androidx.cardview.widget.CardView>
+
+            <com.shtain.nba.presentation.common.view.PlaceHolderView
+                android:id="@+id/placeHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                app:state_button_visibility="true"
+                tools:visibility="visible" />
 
         </RelativeLayout>
 

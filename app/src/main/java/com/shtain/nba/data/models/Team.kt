@@ -1,4 +1,4 @@
-package com.shtain.nba.models
+package com.shtain.nba.data.models
 
 import com.google.gson.annotations.SerializedName
 

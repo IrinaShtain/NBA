@@ -27,6 +27,6 @@ abstract class BaseActivity<VB : ViewBinding>(
      * Clear all fragments from the back stack
      */
     fun clearBackStack() {
-        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 }

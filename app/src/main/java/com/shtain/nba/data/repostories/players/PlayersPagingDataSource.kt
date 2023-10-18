@@ -2,13 +2,14 @@ package com.shtain.nba.data.repostories.players
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.shtain.nba.models.Player
+import com.shtain.nba.data.models.Player
 import com.shtain.nba.data.network.NetworkException
 import com.shtain.nba.data.network.conection.NetworkManagerApi
 import com.shtain.nba.data.network.http.HttpClientApi
 
-class PlayersPagingDataSource(private val nbaPlayersApiService: HttpClientApi,
-                              private val networkManagerApi: NetworkManagerApi
+class PlayersPagingDataSource(
+    private val nbaPlayersApiService: HttpClientApi,
+    private val networkManagerApi: NetworkManagerApi
 ) :
     PagingSource<Int, Player>() {
 
@@ -23,7 +24,7 @@ class PlayersPagingDataSource(private val nbaPlayersApiService: HttpClientApi,
                 nextKey = if (response.meta.totalPages == page) null else page.plus(1)
             )
         } catch (exception: Exception) {
-            return LoadResult.Error(if (networkManagerApi.isConnected()) exception  else NetworkException())
+            return LoadResult.Error(if (networkManagerApi.isConnected()) exception else NetworkException())
         }
     }
 

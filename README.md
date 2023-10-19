@@ -29,4 +29,4 @@ Branch xml_release -> implementation with the UI written in xml UI
 
 Branch compose_fragments_release -> implementation with the UI written in Android Jetpack Compose UI + Fragments
 
-Branches master/compose_release -> implementation with the UI written in Android Jetpack Compose UI
+Branches master and compose_release -> implementation with the UI written in Android Jetpack Compose UI

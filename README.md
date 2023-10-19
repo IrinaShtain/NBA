@@ -30,3 +30,7 @@ Branch xml_release -> implementation with the UI written in xml UI
 Branch compose_fragments_release -> implementation with the UI written in Android Jetpack Compose UI + Fragments
 
 Branches master and compose_release -> implementation with the UI written in Android Jetpack Compose UI
+
+<img width="540" alt="image" src="https://github.com/IrinaShtain/NBA/assets/18727892/4dbcf4ca-cf06-4314-b749-56d7b1f34842">
+
+

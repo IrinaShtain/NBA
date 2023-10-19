@@ -26,6 +26,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shtain.nba.R
 import com.shtain.nba.data.models.Player
 import com.shtain.nba.data.models.Team
@@ -34,17 +35,17 @@ import com.shtain.nba.presentation.common.components.CircularProgress
 import com.shtain.nba.presentation.common.components.DetailsInfoValue
 import com.shtain.nba.presentation.common.components.Name
 import com.shtain.nba.presentation.common.components.NbaMark
-import com.shtain.nba.presentation.common.components.PlaceHolderState
+import com.shtain.nba.presentation.common.components.ErrorStateHolder
 import com.shtain.nba.presentation.common.components.ToolbarData
-
 
 @Composable
 fun PlayerDetailsScreen(
-    playerDetailsViewModel: PlayerDetailsViewModel,
+    playerDetailsViewModel: PlayerDetailsViewModel = hiltViewModel(),
+    playerId: Long,
     onBackClick: () -> Unit,
-    onTeamClick: (Long) -> Unit,
-    onReloadClick: () -> Unit
+    onTeamClick: (Long) -> Unit
 ) {
+    playerDetailsViewModel.setPlayerId(playerId)
     val state by playerDetailsViewModel.playerData.collectAsState(NetworkStatus.Loading)
     ToolbarData(R.string.players_details, onBackClick = onBackClick) { paddingValues ->
         when (state) {
@@ -55,12 +56,11 @@ fun PlayerDetailsScreen(
                         .padding(paddingValues)
                         .fillMaxSize()
                 ) {
-                    PlaceHolderState(
+                    ErrorStateHolder(
                         paddingValues,
                         R.string.no_server_connection,
-                        R.string.check_server_connection,
-                        onReloadClick
-                    )
+                        R.string.check_server_connection
+                    ) { playerDetailsViewModel.reload() }
                 }
             }
 
@@ -75,12 +75,11 @@ fun PlayerDetailsScreen(
                         .padding(paddingValues)
                         .fillMaxSize()
                 ) {
-                    PlaceHolderState(
+                    ErrorStateHolder(
                         paddingValues,
                         R.string.no_internet_connection,
-                        R.string.check_network_connection,
-                        onReloadClick
-                    )
+                        R.string.check_network_connection
+                    ) { playerDetailsViewModel.reload() }
                 }
             }
 
@@ -101,9 +100,8 @@ private fun PlayerContentPreview() {
             Player(
                 0L, "First", "Last", 8, 7, 6, "some position",
                 Team(0L, "", "8", "", "", "team name", "")
-            ),
-            {}
-        )
+            )
+        ) {}
     }
 }
 

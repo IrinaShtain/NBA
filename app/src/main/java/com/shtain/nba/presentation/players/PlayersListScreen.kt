@@ -1,5 +1,6 @@
 package com.shtain.nba.presentation.players
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -28,19 +31,18 @@ import com.shtain.nba.R
 import com.shtain.nba.data.network.NetworkException
 import com.shtain.nba.presentation.common.components.CircularProgress
 import com.shtain.nba.presentation.common.components.DetailsInfoValue
+import com.shtain.nba.presentation.common.components.ErrorStateHolder
 import com.shtain.nba.presentation.common.components.Name
 import com.shtain.nba.presentation.common.components.NbaMark
-import com.shtain.nba.presentation.common.components.PlaceHolderState
 import com.shtain.nba.presentation.common.components.ToolbarData
-
 
 @Composable
 fun PlayersListScreen(
-    viewModel: PlayersListViewModel,
+    viewModel: PlayersListViewModel = hiltViewModel(),
     onTeamClick: (Long) -> Unit,
-    onPlayerClick: (Long) -> Unit,
-    onReloadClick: () -> Unit
+    onPlayerClick: (Long) -> Unit
 ) {
+    val context = LocalContext.current
     val pagingItems: LazyPagingItems<PlayerUiModel> =
         viewModel.playersItemsUiStates.collectAsLazyPagingItems()
     ToolbarData(R.string.players) { paddingValues ->
@@ -71,26 +73,26 @@ fun PlayersListScreen(
 
                     isError -> {
                         item {
-                            PlaceHolderState(
+                            ErrorStateHolder(
                                 paddingValues,
                                 if ((loadState.refresh as LoadState.Error).error is NetworkException)
                                     R.string.no_internet_connection
                                 else R.string.no_server_connection,
                                 if ((loadState.refresh as LoadState.Error).error is NetworkException)
                                     R.string.check_network_connection
-                                else R.string.check_server_connection,
-                                onReloadClick
-                            )
+                                else R.string.check_server_connection
+                            ) { viewModel.reload() }
                         }
                     }
                 }
-//                if (isAppendError) {
-//                    Toast.makeText(requireContext(), getString(
-//                        if ((loadState.append as LoadState.Error).error is NetworkException)
-//                            R.string.no_internet_connection
-//                        else R.string.no_server_connection),
-//                        Toast.LENGTH_LONG).show()
-//                }
+
+                if (isAppendError) {
+                    Toast.makeText(context, context.getString(
+                        if ((loadState.append as LoadState.Error).error is NetworkException)
+                            R.string.no_internet_connection
+                        else R.string.no_server_connection),
+                        Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

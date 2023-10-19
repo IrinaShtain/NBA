@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shtain.nba.R
 import com.shtain.nba.data.models.Team
 import com.shtain.nba.data.network.NetworkStatus
@@ -31,16 +32,17 @@ import com.shtain.nba.presentation.common.components.CircularProgress
 import com.shtain.nba.presentation.common.components.DetailsInfoValue
 import com.shtain.nba.presentation.common.components.Name
 import com.shtain.nba.presentation.common.components.NbaMark
-import com.shtain.nba.presentation.common.components.PlaceHolderState
+import com.shtain.nba.presentation.common.components.ErrorStateHolder
 import com.shtain.nba.presentation.common.components.ToolbarData
 
 
 @Composable
 fun TeamDetailsScreen(
-    teamDetailsViewModel: TeamDetailsViewModel,
-    onBackClick: () -> Unit,
-    onReloadClick: () -> Unit
+    teamDetailsViewModel: TeamDetailsViewModel = hiltViewModel(),
+    teamId: Long,
+    onBackClick: () -> Unit
 ) {
+    teamDetailsViewModel.setTeamId(teamId)
     val state by teamDetailsViewModel.teamData.collectAsState(NetworkStatus.Loading)
     ToolbarData(R.string.players_team, onBackClick = onBackClick) { paddingValues ->
         when (state) {
@@ -51,12 +53,11 @@ fun TeamDetailsScreen(
                         .padding(paddingValues)
                         .fillMaxSize()
                 ) {
-                    PlaceHolderState(
+                    ErrorStateHolder(
                         paddingValues,
                         R.string.no_server_connection,
-                        R.string.check_server_connection,
-                        onReloadClick
-                    )
+                        R.string.check_server_connection
+                    ) { teamDetailsViewModel.reload() }
                 }
             }
 
@@ -71,12 +72,11 @@ fun TeamDetailsScreen(
                         .padding(paddingValues)
                         .fillMaxSize()
                 ) {
-                    PlaceHolderState(
+                    ErrorStateHolder(
                         paddingValues,
                         R.string.no_internet_connection,
-                        R.string.check_network_connection,
-                        onReloadClick
-                    )
+                        R.string.check_network_connection
+                    ) { teamDetailsViewModel.reload() }
                 }
             }
 

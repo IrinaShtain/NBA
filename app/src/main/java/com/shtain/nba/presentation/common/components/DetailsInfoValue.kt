@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shtain.nba.R
 
-
 @Composable
 fun DetailsInfoValue(resHint: Int, value: String, onValueClick: (() -> Unit)? = null) {
     Row(Modifier.wrapContentWidth()) {

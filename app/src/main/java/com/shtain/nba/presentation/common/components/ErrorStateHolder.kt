@@ -32,9 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shtain.nba.R
 
-
 @Composable
-fun PlaceHolderState(
+fun ErrorStateHolder(
     paddingValues: PaddingValues,
     titleRes: Int,
     descriptionRes: Int,
@@ -110,7 +109,7 @@ fun PlaceHolderState(
 @Composable
 private fun PlaceHolderPreview() {
     MaterialTheme {
-        PlaceHolderState(
+        ErrorStateHolder(
             PaddingValues(),
             R.string.no_internet_connection,
             R.string.check_network_connection,

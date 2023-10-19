@@ -1,7 +1,7 @@
-package com.shtain.nba.data.repostories.players
+package com.shtain.nba.domain.players
 
 import androidx.paging.PagingData
-import com.shtain.nba.models.Player
+import com.shtain.nba.data.models.Player
 import kotlinx.coroutines.flow.Flow
 
 

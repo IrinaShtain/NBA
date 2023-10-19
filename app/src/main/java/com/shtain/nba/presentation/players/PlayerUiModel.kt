@@ -1,6 +1,6 @@
 package com.shtain.nba.presentation.players
 
-import com.shtain.nba.models.Player
+import com.shtain.nba.data.models.Player
 
 
 data class PlayerUiModel constructor(

@@ -1,11 +1,11 @@
 package com.shtain.nba.data.repostories.di
 
-import com.shtain.nba.data.repostories.player.PlayerRepository
 import com.shtain.nba.data.repostories.player.PlayerRepositoryImpl
-import com.shtain.nba.data.repostories.players.PlayersRepository
 import com.shtain.nba.data.repostories.players.PlayersRepositoryImpl
-import com.shtain.nba.data.repostories.team.TeamRepository
 import com.shtain.nba.data.repostories.team.TeamRepositoryImpl
+import com.shtain.nba.domain.player.PlayerRepository
+import com.shtain.nba.domain.players.PlayersRepository
+import com.shtain.nba.domain.team.TeamRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

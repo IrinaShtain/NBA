@@ -1,0 +1,176 @@
+package com.shtain.nba.presentation.player
+
+
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.shtain.nba.R
+import com.shtain.nba.data.models.Player
+import com.shtain.nba.data.models.Team
+import com.shtain.nba.data.network.NetworkStatus
+import com.shtain.nba.presentation.common.components.CircularProgress
+import com.shtain.nba.presentation.common.components.DetailsInfoValue
+import com.shtain.nba.presentation.common.components.Name
+import com.shtain.nba.presentation.common.components.NbaMark
+import com.shtain.nba.presentation.common.components.ErrorStateHolder
+import com.shtain.nba.presentation.common.components.ToolbarData
+
+@Composable
+fun PlayerDetailsScreen(
+    playerDetailsViewModel: PlayerDetailsViewModel = hiltViewModel(),
+    playerId: Long,
+    onBackClick: () -> Unit,
+    onTeamClick: (Long) -> Unit
+) {
+    playerDetailsViewModel.setPlayerId(playerId)
+    val state by playerDetailsViewModel.playerData.collectAsState(NetworkStatus.Loading)
+    ToolbarData(R.string.players_details, onBackClick = onBackClick) { paddingValues ->
+        when (state) {
+            is NetworkStatus.Error -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize()
+                ) {
+                    ErrorStateHolder(
+                        paddingValues,
+                        R.string.no_server_connection,
+                        R.string.check_server_connection
+                    ) { playerDetailsViewModel.reload() }
+                }
+            }
+
+            NetworkStatus.Loading -> {
+                CircularProgress(paddingValues)
+            }
+
+            NetworkStatus.NoInternet -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize()
+                ) {
+                    ErrorStateHolder(
+                        paddingValues,
+                        R.string.no_internet_connection,
+                        R.string.check_network_connection
+                    ) { playerDetailsViewModel.reload() }
+                }
+            }
+
+            is NetworkStatus.Success -> {
+                val data = (state as NetworkStatus.Success<Player>).data
+                PlayerContent(paddingValues, data, onTeamClick)
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PlayerContentPreview() {
+    MaterialTheme {
+        PlayerContent(
+            PaddingValues(),
+            Player(
+                0L, "First", "Last", 8, 7, 6, "some position",
+                Team(0L, "", "8", "", "", "team name", "")
+            )
+        ) {}
+    }
+}
+
+@Composable
+private fun PlayerContent(
+    paddingValues: PaddingValues,
+    player: Player,
+    onTeamClick: (Long) -> Unit
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = colorResource(R.color.colorCardBackground),
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 8.dp
+        ),
+        border = BorderStroke(1.dp, Color.Black),
+        modifier = Modifier
+            .wrapContentHeight(Alignment.Top)
+            .fillMaxWidth()
+            .padding(paddingValues)
+            .padding(12.dp),
+        shape = RoundedCornerShape(20.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(2.dp)
+        ) {
+            PlayerDetails(
+                Modifier
+                    .weight(3f)
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(12.dp),
+                player,
+                onTeamClick
+            )
+
+            NbaMark(
+                Modifier
+                    .weight(1f)
+                    .padding(8.dp)
+                    .wrapContentWidth()
+                    .wrapContentHeight()
+            )
+        }
+    }
+}
+
+@Composable
+private fun PlayerDetails(
+    modifier: Modifier = Modifier,
+    player: Player,
+    onTeamClick: (Long) -> Unit
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Top
+    ) {
+        Name(player.fullName)
+        DetailsInfoValue(R.string.position, player.position)
+        DetailsInfoValue(
+            R.string.height,
+            (stringResource(id = R.string.inches, player.heightInches.toString()))
+        )
+        DetailsInfoValue(
+            R.string.weight,
+            (stringResource(id = R.string.pounds, player.weightPounds.toString()))
+        )
+        DetailsInfoValue(R.string.team, player.team.fullName) { onTeamClick(player.team.id) }
+    }
+}

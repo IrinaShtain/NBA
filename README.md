@@ -31,6 +31,8 @@ Branch compose_fragments_release -> implementation with the UI written in Androi
 
 Branches master and compose_release -> implementation with the UI written in Android Jetpack Compose UI
 
-<img width="540" alt="image" src="https://github.com/IrinaShtain/NBA/assets/18727892/4dbcf4ca-cf06-4314-b749-56d7b1f34842">
+<img width="540" alt="image" src="https://github.com/IrinaShtain/NBA/assets/18727892/4dbcf4ca-cf06-4314-b749-56d7b1f34842"> <img width="535" alt="image" src="https://github.com/IrinaShtain/NBA/assets/18727892/22b0c1a7-d2d9-4af3-bee7-b9c5e89175e2"> <img width="535" alt="image" src="https://github.com/IrinaShtain/NBA/assets/18727892/f16ad21a-7557-4d21-b365-fba814165bbe">
+
+
 
 
